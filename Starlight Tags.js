@@ -5,6 +5,9 @@
 // @icon         https://tantabus.ai/favicon.svg
 // @namespace    http://tampermonkey.net/
 // @version      2.3
+// @homepage     https://github.com/PixelSpark987/Starlight-Tags
+// @downloadURL  https://raw.githubusercontent.com/PixelSpark987/Starlight-Tags/refs/heads/main/Starlight%20Tags.js
+// @updateURL    https://raw.githubusercontent.com/PixelSpark987/Starlight-Tags/refs/heads/main/Starlight%20Tags.js
 // @match        *://derpibooru.org/*
 // @match        *://manebooru.art/*
 // @match        *://ponerpics.org/*
