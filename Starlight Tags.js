@@ -118,10 +118,10 @@
         let unwatchedSection = document.getElementById('tm-unwatched-tags');
 
         if (!watchedSection) {
-            watchedSection = createSection('tm-watched-tags', 'Watched Tags');
-            spoiledSection = createSection('tm-spoiled-tags', 'Spoiled Tags');
-            hiddenSection = createSection('tm-hidden-tags', 'Hidden Tags');
-            unwatchedSection = createSection('tm-unwatched-tags', 'Other Tags');
+            watchedSection = createSection('tm-watched-tags', '- Watched Tags');
+            spoiledSection = createSection('tm-spoiled-tags', '- Spoiled Tags');
+            hiddenSection = createSection('tm-hidden-tags', '- Hidden Tags');
+            unwatchedSection = createSection('tm-unwatched-tags', '- Other Tags');
 
             tagsauce.prepend(unwatchedSection);
             tagsauce.prepend(hiddenSection);
