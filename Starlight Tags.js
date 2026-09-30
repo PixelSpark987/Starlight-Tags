@@ -4,16 +4,28 @@
 // @author       PixelSpark987 - https://is.gd/PS987
 // @icon         https://tantabus.ai/favicon.svg
 // @namespace    http://tampermonkey.net/
-// @version      2.5
+// @version      2.6
 // @homepage     https://github.com/PixelSpark987/Starlight-Tags
 // @downloadURL  https://raw.githubusercontent.com/PixelSpark987/Starlight-Tags/refs/heads/main/Starlight%20Tags.js
 // @updateURL    https://raw.githubusercontent.com/PixelSpark987/Starlight-Tags/refs/heads/main/Starlight%20Tags.js
+// Main Sites
 // @match        *://derpibooru.org/*
+// @match        *://*.derpibooru.org/*
 // @match        *://manebooru.art/*
+// @match        *://*.manebooru.art/*
 // @match        *://ponerpics.org/*
+// @match        *://*.ponerpics.org/*
 // @match        *://ponybooru.org/*
+// @match        *://*.ponybooru.org/*
 // @match        *://tantabus.ai/*
+// @match        *://*.tantabus.ai/*
 // @match        *://twibooru.org/*
+// @match        *://*.twibooru.org/*
+// Other Sites
+// @match        *://trixiebooru.org/*
+// @match        *://*.trixiebooru.org/*
+// @match        *://furbooru.org/*
+// @match        *://*.furbooru.org/*
 // @grant        none
 // ==/UserScript==
 
