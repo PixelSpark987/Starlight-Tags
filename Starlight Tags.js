@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Starlight Tags
-// @description  Groups tags into Watched, Spoiled, Hidden, and Other sections on Philomena-based boorus
+// @description  Groups tags into Watched, Spoiled, Filter Zero, Hidden, and Other sections on Philomena-based boorus
 // @author       PixelSpark987 - https://is.gd/PS987
 // @icon         https://tantabus.ai/favicon.svg
 // @namespace    http://tampermonkey.net/
-// @version      2.6
+// @version      2026-10-08
 // @homepage     https://github.com/PixelSpark987/Starlight-Tags
 // @downloadURL  https://raw.githubusercontent.com/PixelSpark987/Starlight-Tags/refs/heads/main/Starlight%20Tags.js
 // @updateURL    https://raw.githubusercontent.com/PixelSpark987/Starlight-Tags/refs/heads/main/Starlight%20Tags.js
@@ -15,15 +15,11 @@
 // @match        *://*.manebooru.art/*
 // @match        *://ponerpics.org/*
 // @match        *://*.ponerpics.org/*
-// @match        *://ponybooru.org/*
-// @match        *://*.ponybooru.org/*
 // @match        *://tantabus.ai/*
 // @match        *://*.tantabus.ai/*
 // @match        *://twibooru.org/*
 // @match        *://*.twibooru.org/*
 // Other Sites
-// @match        *://trixiebooru.org/*
-// @match        *://*.trixiebooru.org/*
 // @match        *://furbooru.org/*
 // @match        *://*.furbooru.org/*
 // @grant        none
@@ -126,23 +122,27 @@
         // 3. Ensure custom tag sections exist inside tagsauce
         let watchedSection = document.getElementById('tm-watched-tags');
         let spoiledSection = document.getElementById('tm-spoiled-tags');
+        let filterZeroSection = document.getElementById('tm-filter-zero-tags');
         let hiddenSection = document.getElementById('tm-hidden-tags');
         let unwatchedSection = document.getElementById('tm-unwatched-tags');
 
         if (!watchedSection) {
             watchedSection = createSection('tm-watched-tags', '- Watched Tags');
             spoiledSection = createSection('tm-spoiled-tags', '- Spoiled Tags');
+            filterZeroSection = createSection('tm-filter-zero-tags', '- Filter Zero Tags');
             hiddenSection = createSection('tm-hidden-tags', '- Hidden Tags');
             unwatchedSection = createSection('tm-unwatched-tags', '- Other Tags');
 
             tagsauce.prepend(unwatchedSection);
             tagsauce.prepend(hiddenSection);
+            tagsauce.prepend(filterZeroSection);
             tagsauce.prepend(spoiledSection);
             tagsauce.prepend(watchedSection);
         }
 
         const watchedGroup = watchedSection.querySelector('.tm-tag-group');
         const spoiledGroup = spoiledSection.querySelector('.tm-tag-group');
+        const filterZeroGroup = filterZeroSection.querySelector('.tm-tag-group');
         const hiddenGroup = hiddenSection.querySelector('.tm-tag-group');
         const unwatchedGroup = unwatchedSection.querySelector('.tm-tag-group');
 
@@ -151,6 +151,7 @@
         tags.forEach(tag => {
             const isWatched = tag.querySelector('.tag__state[title="Watched"]:not(.hidden)');
             const isSpoiled = tag.querySelector('.tag__state[title="Spoilered"]:not(.hidden), .tag__state[title="Spoiled"]:not(.hidden)');
+            const isFilterZero = tag.querySelector('.filter-zero-greyscale') !== null;
             const isHidden = tag.querySelector('.tag__state[title="Hidden"]:not(.hidden)');
 
             let targetGroup = unwatchedGroup;
@@ -158,6 +159,8 @@
                 targetGroup = watchedGroup;
             } else if (isSpoiled) {
                 targetGroup = spoiledGroup;
+            } else if (isFilterZero) {
+                targetGroup = filterZeroGroup;
             } else if (isHidden) {
                 targetGroup = hiddenGroup;
             }
@@ -170,10 +173,10 @@
         });
 
         // 4. Sort tag groups by category & alphabetical order if tags were moved or on initial build
-        [watchedGroup, spoiledGroup, hiddenGroup, unwatchedGroup].forEach(sortTagGroup);
+        [watchedGroup, spoiledGroup, filterZeroGroup, hiddenGroup, unwatchedGroup].forEach(sortTagGroup);
 
         // 5. Hide empty tag sections so they don't leave blank boxes
-        [watchedSection, spoiledSection, hiddenSection, unwatchedSection].forEach(section => {
+        [watchedSection, spoiledSection, filterZeroSection, hiddenSection, unwatchedSection].forEach(section => {
             if (section) {
                 const group = section.querySelector('.tm-tag-group');
                 section.style.display = (group && group.children.length > 0) ? '' : 'none';
