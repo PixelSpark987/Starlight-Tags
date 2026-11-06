@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Starlight Tags
-// @description  Groups tags into Watched, Spoiled, Filter Zero, Hidden, and Other sections on Philomena-based boorus.
+// @description  Groups tags into Watched, Spoiled, Filter Zero, Hidden, and Other sections on Philomena-based boorus
 // @author       PixelSpark987 - https://is.gd/PS987
 // @icon         https://tantabus.ai/favicon.svg
 // @namespace    http://tampermonkey.net/
-// @version      2026-11-05_04
+// @version      2026-11-05_07
 // @homepage     https://github.com/PixelSpark987/Starlight-Tags
 // @downloadURL  https://raw.githubusercontent.com/PixelSpark987/Starlight-Tags/refs/heads/main/Starlight%20Tags.js
 // @updateURL    https://raw.githubusercontent.com/PixelSpark987/Starlight-Tags/refs/heads/main/Starlight%20Tags.js
@@ -28,14 +28,14 @@
 (function() {
     'use strict';
 
-    // Minimal CSS for section spacing and sub-header layout
+    // Minimal CSS for section spacing and sub-header layout with increased left padding
     const style = document.createElement('style');
     style.textContent = `
         .tm-tag-section {
             margin-bottom: 10px !important;
         }
         .tm-tag-section .block__header--sub {
-            padding: 4px 10px !important;
+            padding: 4px 10px 4px 14px !important;
         }
         .tm-tag-group.block__content {
             padding: 8px 10px !important;
@@ -98,7 +98,7 @@
         });
     }
 
-    function organizeTags() {
+    function organiseTags() {
         const tagsauce = document.querySelector('.tagsauce') || document.querySelector('[id^="image_tags_and_source_"]')?.nextElementSibling;
         if (!tagsauce) return;
 
@@ -119,7 +119,7 @@
             }
         });
 
-        // 3. Ensure custom tag sections exist inside tagsauce
+        // 3. Ensure custom tag sections exist inside tagsauce with non-breaking space padding
         let watchedSection = document.getElementById('tm-watched-tags');
         let spoiledSection = document.getElementById('tm-spoiled-tags');
         let filterZeroSection = document.getElementById('tm-filter-zero-tags');
@@ -127,11 +127,11 @@
         let unwatchedSection = document.getElementById('tm-unwatched-tags');
 
         if (!watchedSection) {
-            watchedSection = createSection('tm-watched-tags', ' -Watched Tags');
-            spoiledSection = createSection('tm-spoiled-tags', ' -Spoiled Tags');
-            filterZeroSection = createSection('tm-filter-zero-tags', ' -Filter Zero Tags');
-            hiddenSection = createSection('tm-hidden-tags', ' -Hidden Tags');
-            unwatchedSection = createSection('tm-unwatched-tags', ' -Other Tags');
+            watchedSection = createSection('tm-watched-tags', '&nbsp;&nbsp;- Watched Tags');
+            spoiledSection = createSection('tm-spoiled-tags', '&nbsp;&nbsp;- Spoiled Tags');
+            filterZeroSection = createSection('tm-filter-zero-tags', '&nbsp;&nbsp;- Filter Zero Tags');
+            hiddenSection = createSection('tm-hidden-tags', '&nbsp;&nbsp;- Hidden Tags');
+            unwatchedSection = createSection('tm-unwatched-tags', '&nbsp;&nbsp;- Other Tags');
 
             tagsauce.prepend(unwatchedSection);
             tagsauce.prepend(hiddenSection);
@@ -177,11 +177,11 @@
 
         // 5. Update section headers with dynamic counts and handle visibility for empty sections
         const sectionsConfig = [
-            { section: watchedSection, group: watchedGroup, baseTitle: ' - Watched Tags' },
-            { section: spoiledSection, group: spoiledGroup, baseTitle: ' - Spoiled Tags' },
-            { section: filterZeroSection, group: filterZeroGroup, baseTitle: ' - Filter Zero Tags' },
-            { section: hiddenSection, group: hiddenGroup, baseTitle: ' - Hidden Tags' },
-            { section: unwatchedSection, group: unwatchedGroup, baseTitle: ' - Other Tags' }
+            { section: watchedSection, group: watchedGroup, baseTitle: '&nbsp;&nbsp;- Watched Tags' },
+            { section: spoiledSection, group: spoiledGroup, baseTitle: '&nbsp;&nbsp;- Spoiled Tags' },
+            { section: filterZeroSection, group: filterZeroGroup, baseTitle: '&nbsp;&nbsp;- Filter Zero Tags' },
+            { section: hiddenSection, group: hiddenGroup, baseTitle: '&nbsp;&nbsp;- Hidden Tags' },
+            { section: unwatchedSection, group: unwatchedGroup, baseTitle: '&nbsp;&nbsp;- Other Tags' }
         ];
 
         sectionsConfig.forEach(({ section, group, baseTitle }) => {
@@ -189,7 +189,7 @@
                 const count = group.children.length;
                 const header = section.querySelector('.block__header');
                 if (header) {
-                    header.textContent = `${baseTitle} - ${count}`;
+                    header.innerHTML = `${baseTitle} - ${count}`;
                 }
                 section.style.display = count > 0 ? '' : 'none';
             }
@@ -197,7 +197,7 @@
     }
 
     // Run on initial page load
-    organizeTags();
+    organiseTags();
 
     // Listen for clicks on Watch/Unwatch/Spoiler/Hide dropdown buttons directly
     document.addEventListener('click', (event) => {
@@ -205,7 +205,7 @@
         if (link) {
             let attempts = 0;
             const interval = setInterval(() => {
-                organizeTags();
+                organiseTags();
                 attempts++;
                 if (attempts >= 20) {
                     clearInterval(interval);
@@ -220,7 +220,7 @@
         if (isProcessing) return;
         isProcessing = true;
 
-        organizeTags();
+        organiseTags();
 
         setTimeout(() => { isProcessing = false; }, 50);
     });
