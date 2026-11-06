@@ -4,7 +4,7 @@
 // @author       PixelSpark987 - https://is.gd/PS987
 // @icon         https://tantabus.ai/favicon.svg
 // @namespace    http://tampermonkey.net/
-// @version      2026-11-05_01
+// @version      2026-11-05_02
 // @homepage     https://github.com/PixelSpark987/Starlight-Tags
 // @downloadURL  https://raw.githubusercontent.com/PixelSpark987/Starlight-Tags/refs/heads/main/Starlight%20Tags.js
 // @updateURL    https://raw.githubusercontent.com/PixelSpark987/Starlight-Tags/refs/heads/main/Starlight%20Tags.js
@@ -127,11 +127,11 @@
         let unwatchedSection = document.getElementById('tm-unwatched-tags');
 
         if (!watchedSection) {
-            watchedSection = createSection('tm-watched-tags', '- Watched Tags');
-            spoiledSection = createSection('tm-spoiled-tags', '- Spoiled Tags');
-            filterZeroSection = createSection('tm-filter-zero-tags', '- Filter Zero Tags');
-            hiddenSection = createSection('tm-hidden-tags', '- Hidden Tags');
-            unwatchedSection = createSection('tm-unwatched-tags', '- Other Tags');
+            watchedSection = createSection('tm-watched-tags', ' - Watched Tags');
+            spoiledSection = createSection('tm-spoiled-tags', ' - Spoiled Tags');
+            filterZeroSection = createSection('tm-filter-zero-tags', ' - Filter Zero Tags');
+            hiddenSection = createSection('tm-hidden-tags', ' - Hidden Tags');
+            unwatchedSection = createSection('tm-unwatched-tags', ' - Other Tags');
 
             tagsauce.prepend(unwatchedSection);
             tagsauce.prepend(hiddenSection);
@@ -177,11 +177,11 @@
 
         // 5. Update section headers with dynamic counts and handle visibility for empty sections
         const sectionsConfig = [
-            { section: watchedSection, group: watchedGroup, baseTitle: '- Watched Tags' },
-            { section: spoiledSection, group: spoiledGroup, baseTitle: '- Spoiled Tags' },
-            { section: filterZeroSection, group: filterZeroGroup, baseTitle: '- Filter Zero Tags' },
-            { section: hiddenSection, group: hiddenGroup, baseTitle: '- Hidden Tags' },
-            { section: unwatchedSection, group: unwatchedGroup, baseTitle: '- Other Tags' }
+            { section: watchedSection, group: watchedGroup, baseTitle: ' - Watched Tags' },
+            { section: spoiledSection, group: spoiledGroup, baseTitle: ' - Spoiled Tags' },
+            { section: filterZeroSection, group: filterZeroGroup, baseTitle: ' - Filter Zero Tags' },
+            { section: hiddenSection, group: hiddenGroup, baseTitle: ' - Hidden Tags' },
+            { section: unwatchedSection, group: unwatchedGroup, baseTitle: ' - Other Tags' }
         ];
 
         sectionsConfig.forEach(({ section, group, baseTitle }) => {
