@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Starlight Tags
-// @description  Groups tags into Watched, Spoiled, Filter Zero, Hidden, and Other sections on Philomena-based boorus
+// @description  Groups tags into Watched, Spoiled, Filter Zero, Hidden, and Other sections on Philomena-based boorus.
 // @author       PixelSpark987 - https://is.gd/PS987
 // @icon         https://tantabus.ai/favicon.svg
 // @namespace    http://tampermonkey.net/
-// @version      2026-10-08
+// @version      2026-11-05_01
 // @homepage     https://github.com/PixelSpark987/Starlight-Tags
 // @downloadURL  https://raw.githubusercontent.com/PixelSpark987/Starlight-Tags/refs/heads/main/Starlight%20Tags.js
 // @updateURL    https://raw.githubusercontent.com/PixelSpark987/Starlight-Tags/refs/heads/main/Starlight%20Tags.js
@@ -175,11 +175,23 @@
         // 4. Sort tag groups by category & alphabetical order if tags were moved or on initial build
         [watchedGroup, spoiledGroup, filterZeroGroup, hiddenGroup, unwatchedGroup].forEach(sortTagGroup);
 
-        // 5. Hide empty tag sections so they don't leave blank boxes
-        [watchedSection, spoiledSection, filterZeroSection, hiddenSection, unwatchedSection].forEach(section => {
-            if (section) {
-                const group = section.querySelector('.tm-tag-group');
-                section.style.display = (group && group.children.length > 0) ? '' : 'none';
+        // 5. Update section headers with dynamic counts and handle visibility for empty sections
+        const sectionsConfig = [
+            { section: watchedSection, group: watchedGroup, baseTitle: '- Watched Tags' },
+            { section: spoiledSection, group: spoiledGroup, baseTitle: '- Spoiled Tags' },
+            { section: filterZeroSection, group: filterZeroGroup, baseTitle: '- Filter Zero Tags' },
+            { section: hiddenSection, group: hiddenGroup, baseTitle: '- Hidden Tags' },
+            { section: unwatchedSection, group: unwatchedGroup, baseTitle: '- Other Tags' }
+        ];
+
+        sectionsConfig.forEach(({ section, group, baseTitle }) => {
+            if (section && group) {
+                const count = group.children.length;
+                const header = section.querySelector('.block__header');
+                if (header) {
+                    header.textContent = `${baseTitle} - ${count}`;
+                }
+                section.style.display = count > 0 ? '' : 'none';
             }
         });
     }
