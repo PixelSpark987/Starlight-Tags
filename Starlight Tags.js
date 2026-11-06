@@ -2,9 +2,9 @@
 // @name         Starlight Tags
 // @description  Groups tags into Watched, Spoiled, Filter Zero, Hidden, and Other sections on Philomena-based boorus
 // @author       PixelSpark987 - https://is.gd/PS987
-// @icon         https://tantabus.ai/favicon.svg
+// @icon         https://is.gd/TantabusAISVG
 // @namespace    http://tampermonkey.net/
-// @version      2026-11-05_07
+// @version      2026-11-05_15
 // @homepage     https://github.com/PixelSpark987/Starlight-Tags
 // @downloadURL  https://raw.githubusercontent.com/PixelSpark987/Starlight-Tags/refs/heads/main/Starlight%20Tags.js
 // @updateURL    https://raw.githubusercontent.com/PixelSpark987/Starlight-Tags/refs/heads/main/Starlight%20Tags.js
